@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html> 
+<body>
+
+   
+<br>
+<pre>
+    <div id="d1" style="background-color: black;">Output Space </div>
+    <input id ="i1" placeholder="Provide Instruction to Kubernetes... " style="background-color: white;">
+</pre>
+
+ <img src="k8.gif" id="im1">
+
+
+
+
+
+<script>
+
+function backend()
+{
+     
+   var con = document.getElementById("i1").value;
+
+
+     if (con.includes("launch") && con.includes("pod")){
+        var podname = prompt("Enter Pod Name","Pod1");
+        var imagename = prompt("Enter Image Name","centos");
+        var kaam = "runpod";
+        var detect = kaam + " " + podname + " " + imagename;
+      }
+
+      else if(con.includes("delete") && con.includes("environment")){
+           var detect = "envdelete"+ " " + "delete";
+     }
+
+         
+      else if(con.includes("delete")){
+        if(con.includes("pod")){
+          var podname = prompt("Enter pod name which you want to delete");
+          var kaam = "delpod";
+          var detect = kaam + " " + podname;
+        }
+        else if(con.includes("deployment") || con.includes("deploy")){
+          var depname = prompt("Enter deployment name which you want to delete");
+          var kaam = "deldeploy";
+          var detect = kaam + " " + depname;
+        }
+       }
+
+       
+     else if(con.includes("deploy") || con.includes("deployment")){
+       var depname = prompt("Enter Deployment Name","Anything");
+       var imagename = prompt("Enter Image Name","ubuntu");
+       var kaam = "createdeploy";
+       var detect = kaam + " " + depname + " " + imagename;
+     }
+
+     else if(con.includes("expose")){
+           var depname = prompt("Enter Deployment Name");
+           var portno = prompt("Enter Port Number of service which you want to expose");
+           var kaam = "expose";
+           var detect = kaam + " " + depname + " " + portno;
+     }
+
+     else if(con.includes("scale")){
+       var depname = prompt("Enter Deployment Name");
+       var replicas = prompt("Enter Number of replicas");
+       var kaam = "replicas";
+       var detect = kaam + " " + depname + " " + replicas;
+     }
+
+
+     else if(con.includes("show")){
+        var detect = "show"+" "+"showpods";
+     }
+    
+
+ var xhr = new XMLHttpRequest();
+ xhr.open("GET", "http://3.109.26.86/cgi-bin/kub.py?x="+detect , true);
+ xhr.send();
+
+ //output from url
+xhr.onload = function out(){
+ var output = xhr.responseText;
+ document.getElementById("d1").innerHTML = output; 
+}
+
+
+}
+
+
+</script>
+
+<style>
+
+
+
+   img#im1{
+     width: 200px;
+     height: 200px;
+     position: absolute;
+     left: 530px;
+     top: 5px;
+
+   }
+
+
+  /*Heading Line*/
+  h1#h1{
+    font-size:500%;
+    font-style: initial;
+    position: relative;
+    left: 370px;
+    right: 600px;
+    top: 20px;
+  }
+
+
+  /* Output Block*/
+  div#d1{
+      height: 300px;
+      font-weight: bold;
+      width: 700px;
+      position: absolute;
+      left: 300px;
+      right: 600px;
+      top: 300px;
+      font-size:large;
+      color: white;
+      }
+
+
+
+  /*Input Block*/
+  input#i1{
+    width: 500px;
+    height: 35px;
+    border-radius: 15px;
+    font-weight: bolder;
+    font-size: large;
+    position: absolute;
+    left: 303px;
+    right: 600px;
+    top: 230px;
+  }
+
+
+/*Button Section*/
+
+button#b1 {
+  display: inline-block;
+  padding: 10px 23px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: white;
+  background-color:purple ;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 5px white;
+  position: absolute;
+  left: 900px;
+  right: 600px;
+  top: 230px;
+}
+
+button#b1:hover {background-color: purple}
+
+button#b1:active {
+  background-color: purple;
+  box-shadow: 0 5px black;
+  transform: translateY(4px);
+}
+
+
+
+
+
+
+/*Background Animation*/
+html, body {
+  width: 100%;
+  height:100%;
+}
+
+body {
+    background: linear-gradient(-45deg, pink ,lightskyblue, orange , white   );
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+
+</style>
+
+<button id="b1" onclick="backend()">RUN</button>
+
+
+</body>
+</html>
+
+ 
+
+
